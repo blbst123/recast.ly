@@ -63,6 +63,7 @@ describe('searchYouTube', function() {
     searchYouTube({ key: 'API_KEY', query: 'cats', max: 10 }, () => {});
 
     var params = getURLSearchParams(requests[0].url);
+    console.log(params);
     expect(params.key).to.equal('API_KEY');
     expect(params.q).to.equal('cats');
     expect(params.maxResults).to.equal('10');
@@ -72,7 +73,7 @@ describe('searchYouTube', function() {
   // though it will not necessarily have the same values.
   it('should GET videos with the same shape as `exampleVideoData`', function(done) {
     var options = {
-      key: YOUTUBE_API_KEY,
+      key: 'AIzaSyDxGAzvejvpfmV2gAL049uX5qzPyMQZ9Fg',
       query: 'react',
       max: 5
     };
