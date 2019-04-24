@@ -1,6 +1,7 @@
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
+import VideoInfo from './VideoInfo.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
@@ -27,16 +28,17 @@ class App extends React.Component {
 
   callYouTube() {
     var options = {
-      part: 'snippet',
+      part: 'snippet,statistics',
       q: this.state.searchTerm,
-      maxResults: 5,
+      maxResults: 10,
       key: YOUTUBE_API_KEY,
-      fields: 'items(snippet(title,description,thumbnails(default(url))),id(videoId))'
+      fields: 'items(snippet(title,description,thumbnails(default(url))),id(videoId),statistics)'
     };
     searchYouTube(options, (data) => {
       this.setState({
         videoData: data.items
       });
+      console.log(data.items);
     });
   }
 
@@ -49,6 +51,7 @@ class App extends React.Component {
   render() {
     return (<div>
       <nav className="navbar">
+        <img className="logo" src="https://cdn.shopify.com/s/files/1/0252/7365/files/red-whale-logo_RGB_grande.png?5596" alt=""/>
         <div className="col-md-6 offset-md-3">
           <Search callYouTube={this.callYouTube} updateSearchTerm={this.updateSearchTerm} />
         </div>
